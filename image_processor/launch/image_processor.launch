@@ -1,0 +1,6 @@
+<launch>
+  <node pkg="my_image_transport" name="my_image_transport" type="my_image_transport">
+  </node>
+  <node pkg="image_processor" name="image_processor" type="image_processor">
+  </node>
+</launch>

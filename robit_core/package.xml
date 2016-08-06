@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>robit_core</name>
+  <version>0.0.1</version>
+  <description>Robit总控程序包</description>
+
+  <maintainer email="7881999@qq.com">zkmxy</maintainer>
+  <author email="7881999@qq.com">zjkmxy</author>
+
+  <license>Reserved</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <depend>serial</depend>
+  <depend>movectrl</depend>
+  <depend>image_processor</depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+</package>

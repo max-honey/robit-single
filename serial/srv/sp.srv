@@ -1,0 +1,5 @@
+int16[] speedcmd
+int16 power
+---
+int32[] pos
+int16[] current

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>movectrl</name>
+  <version>0.0.1</version>
+  <description>Robit基本运动控制包</description>
+
+  <maintainer email="7881999@qq.com">zkmxy</maintainer>
+  <author email="7881999@qq.com">zjkmxy</author>
+  <url type="website">https://git.icpc-camp.org/zjkmxy/movectrl</url>
+
+  <license>Reserved</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <depend>serial</depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+</package>
+

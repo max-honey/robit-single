@@ -1,0 +1,18 @@
+<launch>
+  <node pkg="serial" name="serialport" type="serialport">
+    <remap from="speedcontroller" to="/hard/speedcontroller"/>
+    <remap from="shootcontroller" to="/hard/shootcontroller"/>
+  </node>
+  <node pkg="movectrl" name="movectrl" type="movectrl">
+    <remap from="speedcontroller" to="/hard/speedcontroller"/>
+    <remap from="move_cmd" to="/hard/move_cmd"/>
+    <remap from="set_self_pos" to="/hard/self_pos"/>
+    <remap from="get_state" to="/movectrl/get_state"/>
+    <remap from="set_ball_catcher" to="/movectrl/ball_catcher"/>
+    <remap from="set_speed" to="/movectrl/set_speed"/>
+  </node>
+  <node pkg="movectrl" name="circle_test" type="movectrl_circle_test">
+    <remap from="move_cmd" to="/hard/move_cmd"/>
+    <remap from="set_self_pos" to="/hard/self_pos"/>
+  </node>
+</launch>
