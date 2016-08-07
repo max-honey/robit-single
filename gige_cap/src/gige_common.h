@@ -97,6 +97,10 @@ namespace gige
  */
 extern Camera* g_gige_camera;
 
+extern float g_shutter;
+extern float g_frame;
+extern float g_gain;
+
 /**
  * @brief SetParam服务回调函数
  *

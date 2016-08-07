@@ -1,0 +1,38 @@
+<launch>
+  <node pkg="serial" name="serialport" type="serialport">
+    <remap from="speedcontroller" to="/hard/speedcontroller"/>
+    <remap from="shootcontroller" to="/hard/shootcontroller"/>
+  </node>
+  <node pkg="gige_cap" name="gige_cap" type="gige_cap">
+    <remap from="image" to="/GigE/image"/>
+    <remap from="status" to="/GigE/status"/>
+    <param name="frame" value="30.0"/>
+    <param name="shutter" value="10.0"/>
+    <param name="gain" value="3.0"/>
+  </node>
+  <node pkg="image_view" name="gige_view" type="image_view">
+    <remap from="image" to="/GigE/image"/>
+    <param name="autosize" value="true"/>
+  </node>
+  <node pkg="image_processor" name="threshold" type="threshold" respawn="true">
+    <remap from="location" to="/location/ball"/>
+    <remap from="/GigE/image" to="/GigE/image"/>
+  </node>
+  <node pkg="movectrl" name="movectrl" type="movectrl">
+    <remap from="speedcontroller" to="/hard/speedcontroller"/>
+    <remap from="move_cmd" to="/hard/move_cmd"/>
+    <remap from="set_self_pos" to="/hard/self_pos"/>
+    <remap from="get_state" to="/movectrl/get_state"/>
+    <remap from="set_ball_catcher" to="/movectrl/ball_catcher"/>
+    <remap from="set_speed" to="/movectrl/set_speed"/>
+  </node>
+  <node pkg="robit_core" name="shoot_test" type="shoot_test">
+    <remap from="move_cmd" to="/hard/move_cmd"/>
+    <remap from="set_self_pos" to="/hard/self_pos"/>
+    <remap from="location" to="/location/ball"/>
+    <remap from="shootcmd" to="/hard/shootcontroller"/>
+    <param name="shootpower" value="10000"/>
+    <param name="interval" value="60"/>
+  </node>
+  <node pkg="rqt_console" name="rqt_console" type="rqt_console"/>
+</launch>

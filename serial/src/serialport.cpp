@@ -242,7 +242,7 @@ public:
 	void callback2(const serial::shootcmd input)
 	{
 		unsigned char buf[255];
-		int siz, len;
+		int siz, len = 9;
 		generateShootCmd(buf, input.power);
 		//genCmdBuf(buf);
 		sendSerial(fd, buf, len);

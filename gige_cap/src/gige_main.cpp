@@ -4,6 +4,9 @@ using namespace gige;
 using std_msgs::UInt32;
 
 Camera* g_gige_camera;
+float g_shutter;
+float g_frame;
+float g_gain;
 
 /**
  * @defgroup retryover_group 自动重连循环
@@ -28,6 +31,8 @@ int main(int argc, char *argv[])
   ros::init(argc, argv, NODE_NAME);
   ros::NodeHandle handle;
   Camera camera;
+
+  g_shutter = g_frame = g_gain = 0.0f;
 
   //发布图像主题
   image_transport::ImageTransport transport(handle);

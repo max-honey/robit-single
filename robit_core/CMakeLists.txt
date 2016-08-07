@@ -50,8 +50,23 @@ add_executable(catch_ball
 target_link_libraries(catch_ball
   ${catkin_LIBRARIES}
 )
-add_dependencies(catch_ball movectrl_gencpp serial_gencpp image_processor_gencpp)
+add_dependencies(catch_ball
+  movectrl_gencpp
+  serial_gencpp
+  image_processor_gencpp
+)
 
+add_executable(shoot_test
+  src/shoot_test.cpp
+)
+target_link_libraries(shoot_test
+  ${catkin_LIBRARIES}
+)
+add_dependencies(shoot_test
+  movectrl_gencpp
+  serial_gencpp
+  image_processor_gencpp
+)
 
 #############
 ## Install ##

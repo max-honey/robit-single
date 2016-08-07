@@ -10,17 +10,22 @@ using FlyCapture2::FC2Config;
 bool setParam(SetParam::Request &req, SetParam::Response &res)
 {
   PropertyType type;
+  float* gvar;
+
   if(req.name == PARAM_FRAME)
   {
     type = FlyCapture2::FRAME_RATE;
+    gvar = &g_frame;
   }
   else if(req.name == PARAM_SHUTTER)
   {
     type = FlyCapture2::SHUTTER;
+    gvar = &g_shutter;
   }
   else if(req.name == PARAM_GAIN)
   {
     type = FlyCapture2::GAIN;
+    gvar = &g_gain;
   }
   else
   {
@@ -38,13 +43,14 @@ bool setParam(SetParam::Request &req, SetParam::Response &res)
   if (error != FlyCapture2::PGRERROR_OK)
   {
     ROS_WARN("SetProperty %s failed with (%d): %s", req.name.c_str(), error.GetType(), error.GetDescription());
-    res.result = true;
-    return true;
+    res.result = false;
+    return false;
   }
   else
   {
-    res.result = false;
-    return false;
+    *gvar = req.value;
+    res.result = true;
+    return true;
   }
 }
 

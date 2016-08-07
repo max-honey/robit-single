@@ -9,6 +9,21 @@ using std_msgs::UInt32;
 
 namespace gige
 {
+
+  float getParam(const char* name, float default_val)
+  {
+    float ret;
+    if(ros::param::has(name))
+    {
+      ros::param::get(name, ret);
+    }
+    else
+    {
+      ret = default_val;
+    }
+    return ret;
+  }
+
   /**
    * @brief 设置相机属性(单值)
    *
@@ -18,22 +33,14 @@ namespace gige
    * @param type 要设置的属性类型
    * @param default_val 参数服务器未配置时，属性的默认值(极少使用)
    */
-  bool setProperty(Camera* camera, const char* name, PropertyType type, float default_val)
+  bool setProperty(Camera* camera, const char* name, PropertyType type, float val)
   {
     Property property(type);
     property.absControl = true;
     property.onePush = false;
     property.onOff = true;
     property.autoManualMode = false;
-
-    if(ros::param::has(name))
-    {
-      ros::param::get(name, property.absValue);
-    }
-    else
-    {
-      property.absValue = default_val;
-    }
+    property.absValue = val;
 
     Error error = camera->SetProperty(&property, false);
     if (error != FlyCapture2::PGRERROR_OK)
@@ -62,9 +69,22 @@ namespace gige
       }
 
       //配置相机参数(顺序错可能失败)，忽略错误
-      setProperty(gd.camera_, PARAM_FRAME, FlyCapture2::FRAME_RATE, DEFAULT_FRAME);
-      setProperty(gd.camera_, PARAM_SHUTTER, FlyCapture2::SHUTTER, DEFAULT_SHUTTER);
-      setProperty(gd.camera_, PARAM_GAIN, FlyCapture2::GAIN, DEFAULT_GAIN);
+      if(g_shutter <= 1e-2)
+      {
+        g_shutter = getParam(PARAM_SHUTTER, DEFAULT_SHUTTER);
+      }
+      if(g_frame <= 1e-2)
+      {
+        g_frame = getParam(PARAM_FRAME, DEFAULT_FRAME);
+      }
+      if(g_gain <= 1e-2)
+      {
+        g_gain = getParam(PARAM_GAIN, DEFAULT_GAIN);
+      }
+
+      setProperty(gd.camera_, PARAM_FRAME, FlyCapture2::FRAME_RATE, g_frame);
+      setProperty(gd.camera_, PARAM_SHUTTER, FlyCapture2::SHUTTER, g_shutter);
+      setProperty(gd.camera_, PARAM_GAIN, FlyCapture2::GAIN, g_gain);
 
       //配置连接选项，忽略错误
       FC2Config config;
